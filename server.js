@@ -27,11 +27,16 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
+// Root Route
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully!");
+});
+
 // Routes
 app.use("/api/certificates", certificateRoutes);
 
 // Server
-const PORT = 5000; // Local development port
+const PORT = process.env.PORT || 5000; // Use dynamic PORT for deployment
 app.listen(PORT, () =>
-  console.log(`Server running at https://certificate-generator-backend-orcin.vercel.app/`)
+  console.log(`Server running on port ${PORT}`)
 );
