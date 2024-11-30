@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Service account credentials
+credentials.json
+
+# Generated certificates
+certificates/
+
+# Debugging files
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Dependency directories
+coverage/
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.cache
+*.pid
+
+# Testing files
+*.test.js
+*.spec.js
+
+
+#files and folders
+certificates/
