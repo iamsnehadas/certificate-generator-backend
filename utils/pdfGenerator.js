@@ -17,7 +17,7 @@ const generatePDF = async ({ name, course, approvalDate }) => {
   doc.fontSize(20).text("Certificate of Completion", { align: "center" });
   doc.moveDown();
   doc.fontSize(16).text(`This is to certify that ${name}`);
-  doc.text(`${course} course.`);
+  doc.text(`has successfully completed the ${course} course.`);
   doc.text(`Date of Approval: ${approvalDate}`);
   doc.end();
 
