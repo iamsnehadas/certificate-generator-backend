@@ -8,7 +8,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
-
+app.get("/", (req, res) => {
+  res.send("Welcome to the Certificate Generator API");
+});
 // MongoDB Connection using environment variables
 const mongoURI = process.env.MONGO_URI; // MongoDB URI from environment variable
 mongoose
