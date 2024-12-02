@@ -3,8 +3,11 @@ const fs = require("fs");
 const path = require("path");
 
 const uploadToDrive = async (filePath) => {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: path.resolve(__dirname, "../certificate-project-443115-bf1ae8e2a43e.json"),
+  
+  const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+
+    const auth = new google.auth.GoogleAuth({
+    credentials: serviceAccount,
     scopes: ["https://www.googleapis.com/auth/drive.file"],
   });
 
@@ -12,7 +15,7 @@ const uploadToDrive = async (filePath) => {
 
   const fileMetadata = {
     name: path.basename(filePath),
-    parents: ["1kr5HJvYaePyfXuTtGnAImRvo7AkRo-OE"],
+    parents: ["1kr5HJvYaePyfXuTtGnAImRvo7AkRo-OE"], 
   };
 
   const media = {
@@ -20,13 +23,18 @@ const uploadToDrive = async (filePath) => {
     body: fs.createReadStream(filePath),
   };
 
-  const response = await drive.files.create({
-    resource: fileMetadata,
-    media,
-    fields: "id",
-  });
+  try {
+    const response = await drive.files.create({
+      resource: fileMetadata,
+      media,
+      fields: "id",
+    });
 
-  return `https://drive.google.com/file/d/${response.data.id}/view`;
+    return `https://drive.google.com/file/d/${response.data.id}/view`;
+  } catch (error) {
+    console.error("Error uploading file to Google Drive:", error);
+    throw error;
+  }
 };
 
 module.exports = uploadToDrive;
