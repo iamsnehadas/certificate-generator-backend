@@ -4,10 +4,7 @@ const path = require("path");
 
 const uploadToDrive = async (filePath) => {
   try {
-    
-    const serviceAccount = JSON.parse(
-      process.env.GOOGLE_SERVICE_ACCOUNT_JSON.replace(/\\n/g, '\n') 
-    );
+    const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
 
     const auth = new google.auth.GoogleAuth({
       credentials: serviceAccount,
@@ -18,7 +15,7 @@ const uploadToDrive = async (filePath) => {
 
     const fileMetadata = {
       name: path.basename(filePath),
-      parents: ["1kr5HJvYaePyfXuTtGnAImRvo7AkRo-OE"], 
+      parents: ["1kr5HJvYaePyfXuTtGnAImRvo7AkRo-OE"],
     };
 
     const media = {
