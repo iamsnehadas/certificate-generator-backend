@@ -4,8 +4,10 @@ const path = require("path");
 
 const uploadToDrive = async (filePath) => {
   try {
+    
     const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
 
+    
     const auth = new google.auth.GoogleAuth({
       credentials: serviceAccount,
       scopes: ["https://www.googleapis.com/auth/drive.file"],
@@ -13,16 +15,20 @@ const uploadToDrive = async (filePath) => {
 
     const drive = google.drive({ version: "v3", auth });
 
+    
+    const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+
     const fileMetadata = {
       name: path.basename(filePath),
-      parents: ["1kr5HJvYaePyfXuTtGnAImRvo7AkRo-OE"],
+      parents: [folderId], 
     };
 
     const media = {
-      mimeType: "application/pdf",
+      mimeType: "application/pdf", 
       body: fs.createReadStream(filePath),
     };
 
+    
     const response = await drive.files.create({
       resource: fileMetadata,
       media,
